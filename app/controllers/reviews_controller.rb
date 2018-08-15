@@ -14,8 +14,9 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = Review.new
+    @restaurant           = Restaurant.find(params[:restaurant_id])
+    @review               = Review.new
+    @review.restaurant_id = @restaurant
   end
 
   # GET /reviews/1/edit
@@ -26,16 +27,20 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+    @review.save
+    redirect_to restaurants_path
+    # redirect_to restaurant_path(@review.restaurant_id)
 
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to @review.restaurant, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
-      else
-        format.html { render :new }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @review.save
+    #     format.html { redirect_to @review.restaurant, notice: 'Review was successfully created.' }
+    #     format.json { render :show, status: :created, location: @review }
+    #   else
+    #     # format.html { render :new }
+    #     # format.json { render json: @review.errors, status: :unprocessable_entity }
+    #     redirect_to restaurants_path
+    #   end
+    # end
   end
 
   # PATCH/PUT /reviews/1
