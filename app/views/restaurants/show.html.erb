@@ -21,10 +21,12 @@
 <h2> Reviews </h2>
 
 <ul>
-<% @restaurant.reviews.each do |review| %>
-  <li>
-    <%= review.content %> |
-    <%= review.rating %>
-  </li>
-<% end %>
+  <% @restaurant.reviews.each do |review| %>
+    <li>
+      <%= review.content %> |
+      <%= review.rating %>
+    </li>
+  <% end %>
 </ul>
+
+<p> <%= link_to "New Review", new_restaurant_review_path(@restaurant) %></p>

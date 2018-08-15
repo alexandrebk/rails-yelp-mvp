@@ -27,8 +27,9 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+    @review.restaurant_id = params[:restaurant_id]
     @review.save
-    redirect_to restaurants_path
+    redirect_to restaurant_path(@review.restaurant_id)
     # redirect_to restaurant_path(@review.restaurant_id)
 
     # respond_to do |format|
@@ -75,6 +76,6 @@ class ReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
-      params.require(:review).permit(:content, :rating, :restaurant_id)
+      params.require(:review).permit(:content, :rating)
     end
 end
